@@ -5,7 +5,7 @@ res = require 'resources'
 config = require 'config'
 
 _addon.name = 'Sparky'
-_addon.version = '1'
+_addon.version = '1.0.1'
 _addon.author = 'Byrth, Dabidobido'
 _addon.commands = {'sparky'}
 
@@ -74,7 +74,7 @@ function get_item_from_command(command_string)
 	else
 		counter = 0
 		for i,v in pairs(res.items) do
-			if v.en and v.en:lower() == pot_item then
+			if v.en and v.en:lower() == command_string then
 				return i
 			end
 			counter = counter + 1
