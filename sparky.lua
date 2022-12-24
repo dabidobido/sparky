@@ -5,7 +5,7 @@ res = require 'resources'
 config = require 'config'
 
 _addon.name = 'Sparky'
-_addon.version = '1.0.1'
+_addon.version = '1.0.2'
 _addon.author = 'Byrth, Dabidobido'
 _addon.commands = {'sparky'}
 
@@ -53,8 +53,12 @@ option_strings = {
 	[17259]={str=string.char(5,0,0x17,0),cost=432}, -- Pirate's Gun
 	[12582]={str=string.char(4,0,0x2C,0),cost=60}, -- Bone Harness
 	[12454]={str=string.char(4,0,0x2B,0),cost=65}, -- Bone Mask
+	[12834]={str=string.char(4,0,0x2E,0),cost=60}, -- Bone Subligar
 	[15315]={str=string.char(5,0,0x26,0),cost=379}, -- Shade Leggings
 	[16649]={str=string.char(4,0,0x0A,0),cost=60}, -- Bone Pick
+	[17361]={str=string.char(8,0,0x1E,0),cost=200}, -- Crumhorn
+	[16422]={str=string.char(8,0,0x02,0),cost=362}, -- Tigerfangs
+	[12966]={str=string.char(4,0,0x2F,0),cost=60}, -- Bone Leggings
 }
 
 defaults = {}
@@ -170,10 +174,17 @@ windower.register_event('addon command',function(...)
 								print("Item " .. item_id .. " added to purge list")
 							end
 						elseif second == 'remove' then
-							settings.purge_items:remove(tostring(item_id))
-							print("Item " .. item_id .. " removed from purge list")
+							local item_as_string = tostring(item_id)
+							for k, v in pairs(settings.purge_items) do
+								if v == item_as_string then
+									settings.purge_items:remove(k)
+									print("Item " .. item_id .. " removed from purge list")
+									settings:save()
+									return
+								end
+							end
+							print('Item ' .. item_id .. ' not found in purge list')
 						end
-						settings:save()
 					end
 				end
             elseif not res.items[item] then
