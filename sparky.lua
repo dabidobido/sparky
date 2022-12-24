@@ -5,7 +5,7 @@ res = require 'resources'
 config = require 'config'
 
 _addon.name = 'Sparky'
-_addon.version = '1.0.2'
+_addon.version = '1.0.3'
 _addon.author = 'Byrth, Dabidobido'
 _addon.commands = {'sparky'}
 
@@ -172,6 +172,7 @@ windower.register_event('addon command',function(...)
 							else
 								settings.purge_items:append(tostring(item_id))
 								print("Item " .. item_id .. " added to purge list")
+								settings:save()
 							end
 						elseif second == 'remove' then
 							local item_as_string = tostring(item_id)
